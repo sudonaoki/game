@@ -10,7 +10,6 @@ public class Game : MonoBehaviour
     public GameObject open_door;
 
     public GameObject key; // 鍵
-    public Toggle key_toggle; // カギを格納、アイテム選択の状態を取得するのに必要
 
     public GameObject itemget; // 表示するための全画面の透明な土台
     public GameObject key_get; // 鍵入手時表示する
@@ -60,9 +59,8 @@ public class Game : MonoBehaviour
 
     public void close_doortap()
     {
-        if (key_toggle.isOn == true)
+        if (!key.activeInHierarchy)
         {
-            key.SetActive(false);
             close_door.SetActive(false);
             open_door.SetActive(true);
         }
