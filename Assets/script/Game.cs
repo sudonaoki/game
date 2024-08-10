@@ -14,6 +14,8 @@ public class Game : MonoBehaviour
     public GameObject itemget; // 表示するための全画面の透明な土台
     public GameObject key_get; // 鍵入手時表示する
 
+    public GameObject talkPanel;
+
     public GameObject wall1;
     public GameObject wall2;
     public GameObject wall3;
@@ -23,6 +25,7 @@ public class Game : MonoBehaviour
     {
         itemget.SetActive(false); // デフォルトで非アクティブに設定
         open_door.SetActive(false);
+        talkPanel.SetActive(true);
     }
 
     public void gotowall1()
