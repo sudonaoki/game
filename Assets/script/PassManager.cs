@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class KeypadController : MonoBehaviour
+public class PassManager : MonoBehaviour
 {
     public GameObject close_door;
     public GameObject open_door;

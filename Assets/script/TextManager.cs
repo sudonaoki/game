@@ -10,11 +10,16 @@ public class TextManager : MonoBehaviour
     private TextAsset csvFile; // CSVファイルのテキストアセット
     private List<string[]> csvData = new List<string[]>(); // CSVデータのリスト
     private int i = 0; // インデックスカウンター
-    public TextMeshProUGUI NameText; // 追加(名前を表示するテキストUI)
-    public TextMeshProUGUI LogText; // 追加(セリフ・地の文を表示するテキストUI)
+    public TextMeshProUGUI NameText; // 名前を表示するテキストUI
+    public TextMeshProUGUI LogText; // セリフ・地の文を表示するテキストUI
+    public Button nextButton; // ボタンによる進行用
 
     void Start()
     {
+        // 初期状態でテキストUIをクリア
+        NameText.text = "";
+        LogText.text = "";
+
         // CSVファイルの読み込み
         csvFile = Resources.Load("csv/会話") as TextAsset;
         if (csvFile == null)
@@ -31,22 +36,43 @@ public class TextManager : MonoBehaviour
                 csvData.Add(line.Split(',')); // 読み込んだ行をカンマで分割してリストに追加する
             }
         }
+
+        if (nextButton != null)
+        {
+            nextButton.onClick.AddListener(DisplayNextLine);
+        }
     }
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0)) // マウス左ボタンがクリックされたら
+        if (Input.GetMouseButtonDown(0))
         {
-            if (i < csvData.Count) // インデックスが範囲内であるか確認
+            DisplayNextLine();
+        }
+    }
+
+    void DisplayNextLine()
+    {
+        if (i < csvData.Count)
+        {
+            // CSV行に2つ以上の要素があるか確認
+            if (csvData[i].Length >= 2)
             {
-                NameText.text = csvData[i][0]; // インデックスiの0番目の要素を名前テキストUIに表示する
-                LogText.text = csvData[i][1]; // インデックスiの1番目の要素をセリフ・地の文テキストUIに表示する
-                i++; // インデックスをインクリメントする
+                NameText.text = csvData[i][0]; // 名前を表示
+                LogText.text = csvData[i][1]; // セリフ・地の文を表示
             }
             else
             {
-                Debug.LogWarning("No more lines in CSV file.");
+                Debug.LogWarning("Invalid line format in CSV at index " + i);
             }
+            i++; // インデックスをインクリメント
+        }
+        else
+        {
+            // 最後まで表示したらテキストUIをクリア
+            NameText.text = "";
+            LogText.text = "";
+            Debug.LogWarning("No more lines in CSV file.");
         }
     }
 }

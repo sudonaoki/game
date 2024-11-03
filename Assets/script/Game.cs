@@ -37,6 +37,8 @@ public class Game : MonoBehaviour
 
     public GameObject keypadpanel;
     public InputField keypad;
+    public GameObject fieldObject;
+
     public GameObject check_button;
 
 
@@ -47,6 +49,7 @@ public class Game : MonoBehaviour
     public GameObject potato_eat_getpanel;
     public GameObject key2_getpanel;
     public GameObject baseball_getpanel;
+    public GameObject wind_getpanel;
     public GameObject food_getpanel;
     public GameObject controller_getpanel;
     public GameObject CD_getpanel;
@@ -57,6 +60,7 @@ public class Game : MonoBehaviour
     public GameObject eat_potato_itemget;
     public GameObject key2_itemget;
     public GameObject baseball_itemget;
+    public GameObject wind_itemget;
     public GameObject food_itemget;
     public GameObject controller_itemget;
     public GameObject CD_itemget;
@@ -67,6 +71,7 @@ public class Game : MonoBehaviour
     public GameObject eat_potato_get;
     public GameObject key2_get;
     public GameObject baseball_get;
+    public GameObject wind_get;
     public GameObject food_get;
     public GameObject controller_get;
     public GameObject CD_get;
@@ -79,8 +84,11 @@ public class Game : MonoBehaviour
     public GameObject wall3;
     public GameObject wall4;
 
+    public bool key2tap=false;
+
     void Start()
     {
+
         open_door.SetActive(false);
         open_safe.SetActive(false);
         open_bookshelf.SetActive(false);
@@ -88,20 +96,28 @@ public class Game : MonoBehaviour
         on_TV.SetActive(false);
         Hint_Chime.SetActive(false);
         open_window.SetActive(false);
-        eat_Rabbit.SetActive(false); 
+        eat_Rabbit.SetActive(false);
+
+        off_hint.SetActive(false);
 
         keypadpanel.SetActive(false);
-        keypad.gameObject.SetActive(false);
         check_button.SetActive(false);
+
+        keypad = keypad.GetComponent<InputField>();
+        fieldObject = GameObject.Find("keypad");
+        fieldObject.SetActive(false);
+
+
         escapepanel.SetActive(false);
 
         talkPanel.SetActive(false);
 
         key1_getpanel.SetActive(false);
-        potato_getpanel.SetActive(false);   
-        potato_eat_getpanel.SetActive(false);   
+        potato_getpanel.SetActive(false);
+        potato_eat_getpanel.SetActive(false);
         key2_getpanel.SetActive(false);
         baseball_getpanel.SetActive(false);
+        wind_getpanel.SetActive(false);
         food_getpanel.SetActive(false);
         controller_getpanel.SetActive(false);
         CD_getpanel.SetActive(false);
@@ -112,7 +128,8 @@ public class Game : MonoBehaviour
         eat_potato_itemget.SetActive(false);
         key2_itemget.SetActive(false);
         baseball_itemget.SetActive(false);
-        food_itemget.SetActive(false); 
+        wind_itemget.SetActive(false);
+        food_itemget.SetActive(false);
         controller_itemget.SetActive(false);
         CD_itemget.SetActive(false);
         radio_itemget.SetActive(false);
@@ -122,11 +139,13 @@ public class Game : MonoBehaviour
         eat_potato_get.SetActive(false);
         key2_get.SetActive(false);
         baseball_get.SetActive(false);
+        wind_get.SetActive(false);
         food_get.SetActive(false);
         controller_get.SetActive(false);
         CD_get.SetActive(false);
         radio_get.SetActive(false);
     }
+
 
     public void gotowall1()
     {
@@ -181,7 +200,7 @@ public class Game : MonoBehaviour
 
     public void close_bookshelftap()
     {
-        if (!potato.activeInHierarchy) {
+        if (key2tap==true) {
             close_bookshelf.SetActive(false);
             open_bookshelf.SetActive(true);
         }
@@ -190,8 +209,9 @@ public class Game : MonoBehaviour
     public void close_refrigeritortap()
     {
         keypadpanel.SetActive(true);
-        keypad.gameObject.SetActive(true);
+        fieldObject.SetActive(true);
         check_button.SetActive(true);
+
     }
 
     public void keypadtap()
@@ -301,6 +321,7 @@ public class Game : MonoBehaviour
             key2_getpanel.SetActive(false);
             key2_itemget.SetActive(false);
             key2_get.SetActive(false);
+            key2tap = true;
         }
     }
 
@@ -325,6 +346,25 @@ public class Game : MonoBehaviour
             baseball_getpanel.SetActive(false);
             baseball_itemget.SetActive(false);
             baseball_get.SetActive(false);
+        }
+    }
+
+    public void windget()
+    {
+        wind_getpanel.SetActive(true);
+        wind_itemget.SetActive(true);
+
+        wind_get.SetActive(true);
+
+    }
+
+    public void windgettap()
+    {
+        if (wind_get.activeInHierarchy == true)
+        {
+            wind_getpanel.SetActive(false);
+            wind_itemget.SetActive(false);
+            wind_get.SetActive(false);
         }
     }
 
@@ -361,6 +401,7 @@ public class Game : MonoBehaviour
 
     public void controllergettap()
     {
+
         if (controller_get.activeInHierarchy == true)
         {
             controller_getpanel.SetActive(false);
@@ -370,6 +411,7 @@ public class Game : MonoBehaviour
             wall2.SetActive(true);
             wall3.SetActive(false);
             wall4.SetActive(false);
+            off_hint.SetActive(true);
         }
     }
 
